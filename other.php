@@ -11,7 +11,7 @@ require_once __ROOT__ . "vendor/autoload.php";
 \Acme\Debbuger::dd('other.html', $_REQUEST);
 
 // if the caller pressed anything but 1 send them back
-if (!in_array($_REQUEST['Digits'], [1, 2])) {
+if (!in_array($_REQUEST['Digits'], [1, 2, 3])) {
     header("Location: hello.php");
     die;
 }
@@ -35,6 +35,14 @@ switch ($_REQUEST['Digits']) {
         ?>
         <Response>
             <Play><?= __BASE_URL__; ?>song.mp3</Play>
+        </Response>
+        <?php
+        break;
+    }
+    case 3: {
+        ?>
+        <Response>
+            <Say>Error!
         </Response>
         <?php
         break;
