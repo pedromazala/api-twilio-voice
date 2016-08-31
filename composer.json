@@ -1,0 +1,19 @@
+{
+  "name": "emiolo/test",
+  "description": "Test application",
+  "authors": [
+    {
+      "name": "Pedro Mázala",
+      "email": "pedroh.mazala@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "twilio/sdk": "4.11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Acme\\": "app/src/"
+    }
+  }
+}
