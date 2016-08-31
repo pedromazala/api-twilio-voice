@@ -1,6 +1,11 @@
 <?php
 
 define('__ROOT__', __DIR__ . DIRECTORY_SEPARATOR);
+
+$protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+$base_url = $_SERVER['HTTP_HOST'];
+define('__BASE_URL__', $protocol . '://' . $base_url . '/');
+
 require_once __ROOT__ . "vendor/autoload.php";
 
 \Acme\Debbuger::dd('other.html', $_REQUEST);
@@ -29,7 +34,7 @@ switch ($_REQUEST['Digits']) {
     case 2: {
         ?>
         <Response>
-            <Play>https://ce90d372.ngrok.io/song.mp3</Play>
+            <Play><?= __BASE_URL__; ?>song.mp3</Play>
         </Response>
         <?php
         break;

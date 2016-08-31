@@ -1,6 +1,11 @@
 <?php
 
 define('__ROOT__', __DIR__ . DIRECTORY_SEPARATOR);
+
+$protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+$base_url = $_SERVER['HTTP_HOST'];
+define('__BASE_URL__', $protocol . '://' . $base_url . '/');
+
 require_once __ROOT__ . "vendor/autoload.php";
 
 // M-Gov
@@ -15,21 +20,13 @@ $from = "+5532999743335";
 
 $to = isset($_GET['to']) ? $_GET['to'] : '+5532999273553';
 
-$http = new Services_Twilio_TinyHttp(
-    'https://api.twilio.com',
-    array('curlopts' => array(
-        CURLOPT_SSL_VERIFYPEER => true,
-        CURLOPT_SSL_VERIFYHOST => 2,
-    ))
-);
-
-$client = new Services_Twilio($sid, $token, null, $http);
+$client = new Services_Twilio($sid, $token, null);
 $client->http->debug = true;
 
 $call = $client->account->calls->create(
     $from,
     $to,
-    'https://ce90d372.ngrok.io/hello.php',
+    __BASE_URL__ . 'hello.php',
     array(
         //'FallbackUrl' => 'https://78bcaa03.ngrok.io/fallback.php',
         //'StatusCallback' => 'https://78bcaa03.ngrok.io/status.php',
