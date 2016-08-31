@@ -23,14 +23,25 @@ $to = isset($_GET['to']) ? $_GET['to'] : '+5532999273553';
 $client = new Services_Twilio($sid, $token, null);
 $client->http->debug = true;
 
+/**
+ * @var $call Services_Twilio_InstanceResource
+ */
 $call = $client->account->calls->create(
     $from,
     $to,
     __BASE_URL__ . 'hello.php',
-    array(
-        //'FallbackUrl' => 'https://78bcaa03.ngrok.io/fallback.php',
+    [
+        'FallbackUrl' => __BASE_URL__ . 'fallback.php',
         //'StatusCallback' => 'https://78bcaa03.ngrok.io/status.php',
-    )
+    ]
 );
 
 \Acme\Debbuger::dd('performCall.html', $call);
+print '<pre>';
+var_dump($call->client);
+print '<hr />';
+var_dump($call->uri);
+print '<hr />';
+var_dump($call->getResourceName());
+print '<hr />';
+var_dump($call->sid);
