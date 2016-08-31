@@ -26,7 +26,6 @@ $caller_id = $client->account->outgoing_caller_ids->get($_REQUEST['CallSid']);
 
 \Acme\Debbuger::dd('hello.html', $caller_id, $_REQUEST);
 
-$name = "Monkey";
 $voiceParameters = 'language="pt-BR" voice="alice"';
 
 // now greet the caller
@@ -34,10 +33,11 @@ header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 ?>
 <Response>
-    <Say <?= $voiceParameters ?>>Olá <?php echo $name ?>.</Say>
+    <Say <?= $voiceParameters ?>>Olá eMiolo.</Say>
     <Gather numDigits="1" action="other.php" method="POST">
         <Say <?= $voiceParameters ?>>Para falar com um macaco de verdade, digite 1.</Say>
         <Say <?= $voiceParameters ?>>Para ouvir uma boa música, digite 2.</Say>
+        <Say <?= $voiceParameters ?>>Para entrar em uma página com erro, digite 3.</Say>
         <Pause></Pause>
         <Say <?= $voiceParameters ?>>Para ouvir as opções novamente, digite outro número.</Say>
         <Pause></Pause>
