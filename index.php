@@ -2,7 +2,7 @@
 
 define('__ROOT__', __DIR__ . DIRECTORY_SEPARATOR);
 
-$protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+$protocol = isset($_SERVER['HTTP_X_FORWARDED_PROTO']) ? $_SERVER['HTTP_X_FORWARDED_PROTO'] : 'http';
 $base_url = $_SERVER['HTTP_HOST'];
 define('__BASE_URL__', $protocol . '://' . $base_url . '/');
 
