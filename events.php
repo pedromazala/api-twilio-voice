@@ -23,7 +23,7 @@ $client->http->debug = true;
 
 $sid = $_REQUEST['CallSid'];
 $status_path = implode(DIRECTORY_SEPARATOR, [__ROOT__, 'log', 'status', $sid]);
-@mkdir($status_path, 755, true);
+@mkdir($status_path, 0777, true);
 
 $status_file = implode(DIRECTORY_SEPARATOR, ['status', $sid, $_REQUEST['CallStatus'] . '.html']);
 \Acme\Debbuger::dd($status_file, $_REQUEST);
