@@ -31,8 +31,13 @@ $call = $client->account->calls->create(
     $to,
     __BASE_URL__ . 'hello.php',
     [
-        'FallbackUrl' => __BASE_URL__ . 'fallback.php',
-        //'StatusCallback' => 'https://78bcaa03.ngrok.io/status.php',
+        'FallbackUrl' => __BASE_URL__ . "fallback.php",
+
+        'StatusCallback' => __BASE_URL__ . "events.php",
+        'StatusCallbackMethod' => "POST",
+        'StatusCallbackEvent' => [
+            "initiated", "ringing", "answered", "completed"
+        ],
     ]
 );
 
