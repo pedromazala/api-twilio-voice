@@ -38,6 +38,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         <Say <?= $voiceParameters ?>>Para falar com um macaco de verdade, digite 1.</Say>
         <Say <?= $voiceParameters ?>>Para ouvir uma boa música, digite 2.</Say>
         <Say <?= $voiceParameters ?>>Para entrar em uma página com erro, digite 3.</Say>
+        <Say <?= $voiceParameters ?>>Para salvar o status da ligação, digite 4.</Say>
         <Pause></Pause>
         <Say <?= $voiceParameters ?>>Para ouvir as opções novamente, digite outro número.</Say>
         <Pause></Pause>
