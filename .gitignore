@@ -2,4 +2,5 @@
 /vendor/
 /log/
 
+!/log/status/.gitkeep
 !/log/.gitkeep
