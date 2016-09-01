@@ -1,6 +1,9 @@
 /.idea/
 /vendor/
 /log/
+/savedCalls/
 
 !/log/status/.gitkeep
 !/log/.gitkeep
+
+!/savedCalls/.gitkeep
