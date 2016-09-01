@@ -11,7 +11,8 @@ namespace Acme;
 
 class Debbuger
 {
-    public static function dd($filename, ...$debug) {
+    public static function dd($filename, ...$debug)
+    {
         ob_start();
 
         print '<pre>' . PHP_EOL;
@@ -22,5 +23,15 @@ class Debbuger
         ob_end_clean();
 
         file_put_contents(__ROOT__ . 'log' . DIRECTORY_SEPARATOR . $filename, $contents);
+    }
+
+    public static function ds($filename, $contents)
+    {
+        ob_start();
+        print $contents;
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        file_put_contents(__ROOT__ . $filename, $contents);
     }
 }
