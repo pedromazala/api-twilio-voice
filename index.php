@@ -14,19 +14,19 @@ $config = require 'config/eMiolo.php';
 
 $service = new Service($config['sid'], $config['token']);
 $call = new Call($service);
+/*
+ * $call também poderia ser instanciada da seguinte forma:
+ * $call = Call::getCall($config['sid'], $config['token']);
+ */
 
 $params = App::getParameters();
 if (file_exists(__ROOT__ . implode(DIRECTORY_SEPARATOR, $params))) {
 
     /** @noinspection PhpIncludeInspection */
-    require_once (__ROOT__ . implode(DIRECTORY_SEPARATOR, $params));
+    require_once(__ROOT__ . implode(DIRECTORY_SEPARATOR, $params));
 } else {
-    $route = array_shift($params);
 
-    /*
-     * $call também poderia ser instanciada da seguinte forma:
-     * $call = Call::getCall($config['sid'], $config['token']);
-     */
+    $route = array_shift($params);
 
     if ($route === 'call') {
 
