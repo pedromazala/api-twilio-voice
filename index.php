@@ -10,46 +10,52 @@ use EMiolo\Twilio\Helper\Debugger;
 
 App::start();
 
-$params = App::getParameters();
-$route = array_shift($params);
-
 $config = require 'config/eMiolo.php';
 
 $service = new Service($config['sid'], $config['token']);
 $call = new Call($service);
 
-/*
- * $call também poderia ser instanciada da seguinte forma:
- * $call = Call::getCall($config['sid'], $config['token']);
- */
+$params = App::getParameters();
+if (file_exists(__ROOT__ . implode(DIRECTORY_SEPARATOR, $params))) {
 
-if ($route === 'call') {
-
-    $to = array_shift($params);
-    if (strlen($to) == 0) {
-        die('O destinatário não pode ser vazio.');
-    }
-
-    $url = __BASE_URL__ . 'hello/';
-
-    $performedCall = $call->perform($to, $url, $config['from']);
-
-    var_dump($performedCall->sid);
-
-    Debugger::dd('performCall.html', $performedCall);
-
-} else if (in_array($route, ['hello', 'read'], true)) {
-
-    //$call->setPerformedCall($_REQUEST['CallSid']);
-
-    $CallFlowClass = $config['usage'] . 'CallFlow';
-
-    $flow = new $CallFlowClass($call);
-
-} else if (in_array($route, ['events', 'fallback'], true)) {
-
+    /** @noinspection PhpIncludeInspection */
+    require_once (__ROOT__ . implode(DIRECTORY_SEPARATOR, $params));
 } else {
-    die("Rota desconhecida.");
+    $route = array_shift($params);
+
+    /*
+     * $call também poderia ser instanciada da seguinte forma:
+     * $call = Call::getCall($config['sid'], $config['token']);
+     */
+
+    if ($route === 'call') {
+
+        $to = array_shift($params);
+        if (strlen($to) == 0) {
+            die('O destinatário não pode ser vazio.');
+        }
+
+        $url = __BASE_URL__ . 'hello/';
+
+        $performedCall = $call->perform($to, $url, $config['from']);
+
+        var_dump($performedCall->sid);
+
+        Debugger::dd('performCall.html', $performedCall);
+
+    } else if (in_array($route, ['hello', 'read'], true)) {
+
+        //$call->setPerformedCall($_REQUEST['CallSid']);
+
+        $CallFlowClass = $config['usage'] . 'CallFlow';
+
+        $flow = new $CallFlowClass($call);
+
+    } else if (in_array($route, ['events', 'fallback'], true)) {
+
+    } else {
+        die("Rota desconhecida.");
+    }
 }
 /*
 print '<pre>';
