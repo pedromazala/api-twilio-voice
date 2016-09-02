@@ -11,7 +11,7 @@ namespace EMiolo\Twilio\App\Pattern;
 use EMiolo\Twilio\App\Call;
 use EMiolo\Twilio\App\Exception\PerformedCallException;
 
-class CallFlow
+abstract class CallFlow
 {
     /**
      * @var Call
@@ -32,21 +32,14 @@ class CallFlow
         }
 
         $this->call = $call;
+
+        $this->run();
     }
 
-    public function start()
-    {
-        $response = new \Services_Twilio_Twiml();
-
-        $saySettings = [
-            'language' => "pt-BR",
-            'voice' => "alice"
-        ];
-
-        $response->say("Olá, esta é a api de utilização da ferramenta Twilio criada pela eMiolo.", $saySettings);
-        $response->say("Qualquer dúvida, entre em contado pelo e-mail: suporte@emiolo.com!", $saySettings);
-        $response->say("Até mais.", $saySettings);
-
-        print $response;
-    }
+    /**
+     * Método que é chamado logo após a construção do objeto.
+     *
+     * @return mixed
+     */
+    public abstract function run();
 }
