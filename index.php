@@ -34,46 +34,29 @@ if ($route === 'call') {
 
     $performedCall = $call->perform($to, $url, $config['from']);
 
-/*    print '<pre>';
-    var_dump($performedCall->client);
-    print '<hr />';
-    var_dump($performedCall->uri);
-    print '<hr />';
-    var_dump($performedCall->getResourceName());
-    print '<hr />';*/
     var_dump($performedCall->sid);
 
     Debugger::dd('performCall.html', $performedCall);
 
-} else if (in_array($route, ['hello', 'read', 'events', 'fallback'], true)) {
+} else if (in_array($route, ['hello', 'read'], true)) {
 
-    $callSid = $_REQUEST['CallSid'];
-    $call->setPerformedCall($callSid);
+    //$call->setPerformedCall($_REQUEST['CallSid']);
 
     $CallFlowClass = $config['usage'] . 'CallFlow';
 
     $flow = new $CallFlowClass($call);
-    die();
 
-    switch ($route) {
-        case 'hello': {
-            break;
-        }
-        case 'read': {
-            break;
-        }
-        case 'events': {
-            break;
-        }
-        case 'fallback': {
-            break;
-        }
-        default: {
-            die ("Provavelmente, foi adicionada uma entrada nas rotas disponíveis, mas ela não está sendo utilizada.");
-            break;
-        }
-    }
+} else if (in_array($route, ['events', 'fallback'], true)) {
 
 } else {
     die("Rota desconhecida.");
 }
+/*
+print '<pre>';
+var_dump($performedCall->client);
+print '<hr />';
+var_dump($performedCall->uri);
+print '<hr />';
+var_dump($performedCall->getResourceName());
+print '<hr />';
+*/
