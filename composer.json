@@ -1,6 +1,7 @@
 {
-  "name": "emiolo/test",
-  "description": "Test application",
+  "name": "eMiolo/TwilioIVR",
+  "description": "Simplificador para utilização da API de voz da Twilio",
+  "license": "MIT",
   "authors": [
     {
       "name": "Pedro Mázala",
@@ -9,6 +10,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
+    "php": ">=5.6",
     "twilio/sdk": "4.11.0"
   },
   "autoload": {

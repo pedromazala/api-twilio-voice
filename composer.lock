@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2cc9289c223cad21cea562a5a7b40f83",
-    "content-hash": "bc6465925e9fd01569c1f41bc71d085c",
+    "hash": "6960bf0cca84eb6e37a48a8e4be65026",
+    "content-hash": "463e9a62b200faf5260e94b330e0f273",
     "packages": [
         {
             "name": "twilio/sdk",
@@ -64,6 +64,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.6"
+    },
     "platform-dev": []
 }
