@@ -19,6 +19,16 @@ $call = new Call($service);
  * $call = Call::getCall($config['sid'], $config['token']);
  */
 
+$call->setParams([
+    'FallbackUrl' => __BASE_URL__ . "fallback.php",
+
+    'StatusCallback' => __BASE_URL__ . "events.php",
+    'StatusCallbackMethod' => "POST",
+    'StatusCallbackEvent' => [
+        "initiated", "ringing", "answered", "completed"
+    ],
+]);
+
 $params = App::getParameters();
 if (file_exists(__ROOT__ . implode(DIRECTORY_SEPARATOR, $params))) {
 

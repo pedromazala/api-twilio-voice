@@ -21,6 +21,11 @@ class Call
     protected $performedCall;
 
     /**
+     * @var array
+     */
+    protected $params = [];
+
+    /**
      * Call constructor.
      *
      * @param Service $service
@@ -62,15 +67,7 @@ class Call
         }
 
         if (is_null($params)) {
-            $params = [
-                'FallbackUrl' => __BASE_URL__ . "fallback.php",
-
-                'StatusCallback' => __BASE_URL__ . "events.php",
-                'StatusCallbackMethod' => "POST",
-                'StatusCallbackEvent' => [
-                    "initiated", "ringing", "answered", "completed"
-                ],
-            ];
+            $params = $this->params;
         }
 
         /**
@@ -117,5 +114,26 @@ class Call
         }
 
         return $this->performedCall;
+    }
+
+    /**
+     * Escolhe os parâmetros que serão utilizados na ligação
+     *
+     * @param array $params
+     */
+    public function setParams(array $params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * Método utilizado para setar um parêmetro em específico ou adicionar um novo
+     *
+     * @param string $key
+     * @param mixed $value
+     */
+    public function addParam($key, $value)
+    {
+        $this->params[$key] = $value;
     }
 }
