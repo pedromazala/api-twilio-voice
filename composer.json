@@ -13,7 +13,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Acme\\": "app/src/"
+      "EMiolo\\Twilio\\": "app/src/"
     }
   }
 }
