@@ -1,52 +1,78 @@
 <?php
-
 define('__ROOT__', __DIR__ . DIRECTORY_SEPARATOR);
 
-$protocol = isset($_SERVER['HTTP_X_FORWARDED_PROTO']) ? $_SERVER['HTTP_X_FORWARDED_PROTO'] : 'http';
-$base_url = $_SERVER['HTTP_HOST'];
-define('__BASE_URL__', $protocol . '://' . $base_url . '/');
+require_once "vendor/autoload.php";
 
-require_once __ROOT__ . "vendor/autoload.php";
+use EMiolo\Twilio\App;
+use EMiolo\Twilio\App\Service;
+use EMiolo\Twilio\App\Call;
+use EMiolo\Twilio\Helper\Debugger;
 
-// M-Gov
-$sid = "ACda019482cdeb6b0ce50e0ae710ce8af0";
-$token = "c2590e5e650e7c1b2e21891196314b7c";
-$from = "+551149502223";
+App::start();
 
-// eMiolo
-$sid = "AC207fb2661446d1c3d8c68150eeacf5ed";
-$token = "ab2c982bd4b770029862741c2d298957";
-$from = "+5532999743335";
+$params = App::getParameters();
+$route = array_shift($params);
 
-$to = isset($_GET['to']) ? $_GET['to'] : '+5532999273553';
+$config = require 'config/eMiolo.php';
 
-$client = new Services_Twilio($sid, $token, null);
-$client->http->debug = true;
+$service = new Service($config['sid'], $config['token']);
+$call = new Call($service);
 
-/**
- * @var $call Services_Twilio_InstanceResource
+/*
+ * $call também poderia ser instanciada da seguinte forma:
+ * $call = Call::getCall($config['sid'], $config['token']);
  */
-$call = $client->account->calls->create(
-    $from,
-    $to,
-    __BASE_URL__ . 'hello.php',
-    [
-        'FallbackUrl' => __BASE_URL__ . "fallback.php",
 
-        'StatusCallback' => __BASE_URL__ . "events.php",
-        'StatusCallbackMethod' => "POST",
-        'StatusCallbackEvent' => [
-            "initiated", "ringing", "answered", "completed"
-        ],
-    ]
-);
+if ($route === 'call') {
 
-\Acme\Debbuger::dd('performCall.html', $call);
-print '<pre>';
-var_dump($call->client);
-print '<hr />';
-var_dump($call->uri);
-print '<hr />';
-var_dump($call->getResourceName());
-print '<hr />';
-var_dump($call->sid);
+    $to = array_shift($params);
+    if (strlen($to) == 0) {
+        die('O destinatário não pode ser vazio.');
+    }
+
+    $url = __BASE_URL__ . 'hello/';
+
+    $performedCall = $call->perform($to, $url, $config['from']);
+
+/*    print '<pre>';
+    var_dump($performedCall->client);
+    print '<hr />';
+    var_dump($performedCall->uri);
+    print '<hr />';
+    var_dump($performedCall->getResourceName());
+    print '<hr />';*/
+    var_dump($performedCall->sid);
+
+    Debugger::dd('performCall.html', $performedCall);
+
+} else if (in_array($route, ['hello', 'read', 'events', 'fallback'], true)) {
+
+    $callSid = $_REQUEST['CallSid'];
+    $call->setPerformedCall($callSid);
+
+    $flow = new App\Pattern\CallFlow($call);
+    $flow->start();
+    die();
+
+    switch ($route) {
+        case 'hello': {
+            break;
+        }
+        case 'read': {
+            break;
+        }
+        case 'events': {
+            break;
+        }
+        case 'fallback': {
+            break;
+        }
+        default: {
+            die ("Provavelmente, foi adicionada uma entrada nas rotas disponíveis, mas ela não está sendo utilizada.");
+            break;
+        }
+    }
+
+} else {
+    die("Rota desconhecida.");
+}
