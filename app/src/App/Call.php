@@ -112,6 +112,10 @@ class Call
      */
     public function getPerformedCall()
     {
+        if (is_null($this->performedCall) && isset($_REQUEST['CallSid'])) {
+            $this->setPerformedCall($_REQUEST['CallSid']);
+        }
+
         return $this->performedCall;
     }
 }
