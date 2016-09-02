@@ -4,8 +4,8 @@ define('__ROOT__', __DIR__ . DIRECTORY_SEPARATOR);
 require_once "vendor/autoload.php";
 
 use EMiolo\Twilio\App;
-use EMiolo\Twilio\App\Service;
 use EMiolo\Twilio\App\Call;
+use EMiolo\Twilio\App\Service;
 use EMiolo\Twilio\Helper\Debugger;
 
 App::start();
@@ -50,8 +50,9 @@ if ($route === 'call') {
     $callSid = $_REQUEST['CallSid'];
     $call->setPerformedCall($callSid);
 
-    $flow = new App\Pattern\CallFlow($call);
-    $flow->start();
+    $CallFlowClass = $config['usage'] . 'CallFlow';
+
+    $flow = new $CallFlowClass($call);
     die();
 
     switch ($route) {
