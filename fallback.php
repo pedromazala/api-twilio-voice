@@ -9,7 +9,7 @@ define('__BASE_URL__', $protocol . '://' . $base_url . '/');
 require_once __ROOT__ . "vendor/autoload.php";
 
 
-\Acme\Debbuger::dd('fallback.html', $_REQUEST);
+\EMiolo\Twilio\Helper\Debugger::dd('fallback.html', $_REQUEST);
 
 $voiceParameters = 'language="pt-BR" voice="alice"';
 

@@ -27,7 +27,7 @@ if (!in_array($_REQUEST['Digits'], [1, 2, 3, 4])) {
 $client = new Services_Twilio($sid, $token, null);
 $client->http->debug = true;
 
-\Acme\Debbuger::dd('other.html', $_REQUEST);
+\EMiolo\Twilio\Helper\Debugger::dd('other.html', $_REQUEST);
 
 $voiceParameters = 'language="pt-BR" voice="man"';
 
@@ -64,11 +64,11 @@ switch ($_REQUEST['Digits']) {
 
         $callArray = ['passed' => 0];
         if (!file_exists($saveLocation)) {
-            \Acme\Debbuger::ds($saveLocation, json_encode($callArray));
+            \EMiolo\Twilio\Helper\Debugger::ds($saveLocation, json_encode($callArray));
         }
         $callArray = (array)json_decode(file_get_contents($saveLocation));
         $callArray['passed']++;
-        \Acme\Debbuger::ds($saveLocation, json_encode($callArray));
+        \EMiolo\Twilio\Helper\Debugger::ds($saveLocation, json_encode($callArray));
 
         ?>
         <Say <?= $voiceParameters ?>>É a <?= $callArray['passed']; ?>ª vez que você salva seu caminho</Say>

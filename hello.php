@@ -24,7 +24,7 @@ $client->http->debug = true;
 
 $caller_id = $client->account->outgoing_caller_ids->get($_REQUEST['CallSid']);
 
-\Acme\Debbuger::dd('hello.html', $caller_id, $_REQUEST);
+\EMiolo\Twilio\Helper\Debugger::dd('hello.html', $caller_id, $_REQUEST);
 
 $voiceParameters = 'language="pt-BR" voice="alice"';
 
