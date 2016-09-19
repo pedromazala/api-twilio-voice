@@ -19,7 +19,19 @@ class Service
 
     public function __construct($sid, $token)
     {
-        $this->client = new \Services_Twilio($sid, $token);
+        $http = null;
+        if (App::isDebug()) {
+            $http = new \Services_Twilio_TinyHttp(
+                'https://api.twilio.com',
+                [
+                    'curlopts' => [
+                        CURLOPT_SSL_VERIFYPEER => false,
+                        CURLOPT_SSL_VERIFYHOST => 2,
+                    ]
+                ]
+            );
+        }
+        $this->client = new \Services_Twilio($sid, $token, null, $http);
 
         if (App::isDebug()) {
             $this->client->http->debug = true;

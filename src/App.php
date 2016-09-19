@@ -43,7 +43,7 @@ class App
      */
     public static function isDebug()
     {
-        if (defined('DEBUG') && DEBUG) {
+        if ((defined('TWILIO_DEBUG') && TWILIO_DEBUG) || !((bool) env('TWILIO_SSL'))) {
             return true;
         }
 
