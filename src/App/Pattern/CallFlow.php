@@ -32,14 +32,5 @@ abstract class CallFlow
         }
 
         $this->call = $call;
-
-        $this->run();
     }
-
-    /**
-     * Método que é chamado logo após a construção do objeto.
-     *
-     * @return mixed
-     */
-    public abstract function run();
 }
