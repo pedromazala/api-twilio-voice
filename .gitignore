@@ -1,9 +1,4 @@
-/.idea/
-/vendor/
-/log/
-/savedCalls/
+/.idea/*
+/vendor/*
 
-!/log/status/.gitkeep
-!/log/.gitkeep
-
-!/savedCalls/.gitkeep
+/composer.lock
