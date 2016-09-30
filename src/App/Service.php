@@ -29,10 +29,10 @@ class Service
 //                ]
 //            );
         }
-        $this->client = new Client($sid, $token, null, $http);
+        $this->client = new Client($sid, $token);
 
         if (App::isDebug()) {
-            $this->client->http->debug = true;
+//            $this->client->http->debug = true;
         }
     }
 

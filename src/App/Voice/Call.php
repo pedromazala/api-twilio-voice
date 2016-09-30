@@ -67,13 +67,14 @@ class Call
             $params = $this->params;
         }
 
+        $params = array_merge(['url' => $url], $params);
+
         /**
          * @var $call CallInstance
          */
         $call = $this->service->getClient()->account->calls->create(
-            $from,
             $to,
-            $url,
+            $from,
             $params
         );
 
