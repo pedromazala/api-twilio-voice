@@ -1,6 +1,6 @@
 {
   "name": "emiolo/twilioirv",
-  "description": "Simplificador para utilização da API de voz da Twilio",
+  "description": "Simplificador para utilização da API da Twilio",
   "license": "MIT",
   "authors": [
     {
@@ -11,8 +11,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.6",
-    "twilio/sdk": "4.11.0",
-    "vlucas/phpdotenv": "~1.0"
+    "twilio/sdk": "^5.4"
   },
   "autoload": {
     "psr-4": {

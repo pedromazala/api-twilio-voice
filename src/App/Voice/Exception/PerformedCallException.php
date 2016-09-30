@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emiolo
- * Date: 02/09/16
- * Time: 09:34
- */
 
-namespace EMiolo\Twilio\App\Exception;
+namespace EMiolo\Twilio\App\Voice\Exception;
 
+use \Exception;
 
-class PerformedCallException extends \Exception
+class PerformedCallException extends Exception
 {
     public function __construct()
     {

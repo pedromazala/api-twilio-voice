@@ -1,20 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emiolo
- * Date: 02/09/16
- * Time: 10:24
- */
 
 namespace EMiolo\Example;
 
-use EMiolo\Twilio\App\Pattern\CallFlow as CallFlowPattern;
+use EMiolo\Twilio\App\Voice\Call;
+use EMiolo\Twilio\App\Voice\Pattern\CallFlow as CallFlowPattern;
+use EMiolo\Twilio\App\Voice\Response;
 
 class CallFlow extends CallFlowPattern
 {
+    public function __construct(Call $call)
+    {
+        $this->setCall($call);
+    }
+
     public function run()
     {
-        $response = new \Services_Twilio_Twiml();
+        $response = new Response();
 
         $saySettings = [
             'language' => "pt-BR",

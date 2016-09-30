@@ -1,19 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emiolo
- * Date: 01/09/16
- * Time: 17:13
- */
 
 namespace EMiolo\Twilio\App;
 
 use EMiolo\Twilio\App;
+use Twilio\Rest\Client;
 
 class Service
 {
     /**
-     * @var \Services_Twilio
+     * @var Client
      */
     protected $client;
 
@@ -21,17 +16,20 @@ class Service
     {
         $http = null;
         if (App::isDebug()) {
-            $http = new \Services_Twilio_TinyHttp(
-                'https://api.twilio.com',
-                [
-                    'curlopts' => [
-                        CURLOPT_SSL_VERIFYPEER => false,
-                        CURLOPT_SSL_VERIFYHOST => 2,
-                    ]
-                ]
-            );
+            /*
+             * TODO: SSL escape
+             */
+//            $http = new \Services_Twilio_TinyHttp(
+//                'https://api.twilio.com',
+//                [
+//                    'curlopts' => [
+//                        CURLOPT_SSL_VERIFYPEER => false,
+//                        CURLOPT_SSL_VERIFYHOST => 2,
+//                    ]
+//                ]
+//            );
         }
-        $this->client = new \Services_Twilio($sid, $token, null, $http);
+        $this->client = new Client($sid, $token, null, $http);
 
         if (App::isDebug()) {
             $this->client->http->debug = true;
@@ -39,7 +37,7 @@ class Service
     }
 
     /**
-     * @return \Services_Twilio
+     * @return Client
      */
     public function getClient()
     {

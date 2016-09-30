@@ -1,12 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emiolo
- * Date: 02/09/16
- * Time: 09:06
- */
 
-namespace EMiolo\Twilio\App;
+namespace EMiolo\Twilio\App\Voice;
+
+use EMiolo\Twilio\App\Service;
+use Twilio\Rest\Api\V2010\Account\CallInstance;
 
 class Call
 {
@@ -16,7 +13,7 @@ class Call
     protected $service;
 
     /**
-     * @var \Services_Twilio_InstanceResource
+     * @var CallInstance
      */
     protected $performedCall;
 
@@ -58,7 +55,7 @@ class Call
      * @param null $from
      * @param null $params
      *
-     * @return \Services_Twilio_InstanceResource
+     * @return CallInstance
      */
     public function perform($to, $url, $from = null, $params = null)
     {
@@ -71,7 +68,7 @@ class Call
         }
 
         /**
-         * @var $call \Services_Twilio_InstanceResource
+         * @var $call CallInstance
          */
         $call = $this->service->getClient()->account->calls->create(
             $from,
@@ -99,13 +96,12 @@ class Call
         $this->performedCall = $this
             ->service
             ->getClient()
-            ->account
-            ->calls
-            ->get($callSid);
+            ->calls($callSid)->
+            fetch();
     }
 
     /**
-     * @return \Services_Twilio_InstanceResource
+     * @return CallInstance
      */
     public function getPerformedCall()
     {

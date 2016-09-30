@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emiolo
- * Date: 02/09/16
- * Time: 08:34
- */
 
-namespace EMiolo\Twilio\App\Pattern;
+namespace EMiolo\Twilio\App\Voice\Pattern;
 
-use EMiolo\Twilio\App\Call;
 use EMiolo\Twilio\App\Exception\PerformedCallException;
+use EMiolo\Twilio\App\Voice\Call;
 
 abstract class CallFlow
 {
@@ -19,16 +13,13 @@ abstract class CallFlow
     protected $call;
 
     /**
-     * CallFlow constructor.
-     *
      * @param Call $call
      * @throws PerformedCallException
      */
-    public final function __construct(Call $call)
+    public final function setCall(Call $call)
     {
         if (is_null($call->getPerformedCall())) {
             throw new PerformedCallException();
-            die();
         }
 
         $this->call = $call;
