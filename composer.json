@@ -16,7 +16,7 @@
   "autoload": {
     "psr-4": {
       "EMiolo\\Twilio\\": "src/",
-      "EMiolo\\Example\\": "example/"
+      "EMiolo\\Example\\": "example/src/"
     }
   }
 }

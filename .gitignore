@@ -1,4 +1,14 @@
-/.idea/*
-/vendor/*
+# IDE's
+/.idea/
 
+# Settings
+/example/run/config*.php
+!/example/run/config.example.php
+
+# Logs
+/example/run/log/message/*.log
+/example/run/log/voice/*.log
+
+# Project
+/vendor/
 /composer.lock

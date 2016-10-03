@@ -2,7 +2,7 @@
 
 namespace EMiolo\Twilio\App\Voice\Pattern;
 
-use EMiolo\Twilio\App\Exception\PerformedCallException;
+use EMiolo\Twilio\App\Voice\Exception\PerformedCallException;
 use EMiolo\Twilio\App\Voice\Call;
 
 abstract class CallFlow

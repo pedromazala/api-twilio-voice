@@ -2,15 +2,11 @@
 
 namespace EMiolo\Twilio\App\Voice;
 
-use EMiolo\Twilio\App\Service;
+use EMiolo\Twilio\App\Pattern\ServicePattern;
 use Twilio\Rest\Api\V2010\Account\CallInstance;
 
-class Call
+class Call extends ServicePattern
 {
-    /**
-     * @var Service
-     */
-    protected $service;
 
     /**
      * @var CallInstance
@@ -18,33 +14,16 @@ class Call
     protected $performedCall;
 
     /**
-     * @var array
-     */
-    protected $params = [];
-
-    /**
-     * Call constructor.
-     *
-     * @param Service $service
-     */
-    public function __construct(Service $service)
-    {
-        $this->service = $service;
-    }
-
-    /**
      * Construtor alternativo
      *
      * @param $sid
      * @param $token
      *
-     * @return Call
+     * @return ServicePattern|Call
      */
     public static function getCall($sid, $token)
     {
-        $service = new Service($sid, $token);
-
-        return new static($service);
+        return parent::get($sid, $token);
     }
 
     /**
@@ -68,25 +47,17 @@ class Call
         }
 
         $params = array_merge(['url' => $url], $params);
-
+//var_dump($params);exit;
         /**
          * @var $call CallInstance
          */
-        $call = $this->service->getClient()->account->calls->create(
+        $call = $this->service->getClient()->calls->create(
             $to,
             $from,
             $params
         );
 
         return $call;
-    }
-
-    /**
-     * @return Service
-     */
-    public function getService()
-    {
-        return $this->service;
     }
 
     /**
@@ -97,8 +68,8 @@ class Call
         $this->performedCall = $this
             ->service
             ->getClient()
-            ->calls($callSid)->
-            fetch();
+            ->calls($callSid)
+            ->fetch();
     }
 
     /**
@@ -111,26 +82,5 @@ class Call
         }
 
         return $this->performedCall;
-    }
-
-    /**
-     * Escolhe os parâmetros que serão utilizados na ligação
-     *
-     * @param array $params
-     */
-    public function setParams(array $params)
-    {
-        $this->params = $params;
-    }
-
-    /**
-     * Método utilizado para setar um parêmetro em específico ou adicionar um novo
-     *
-     * @param string $key
-     * @param mixed $value
-     */
-    public function addParam($key, $value)
-    {
-        $this->params[$key] = $value;
     }
 }
