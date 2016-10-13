@@ -47,8 +47,6 @@ class Sms extends ServicePattern
             $params
         );
 
-        var_dump($message);
-
         return $message;
     }
 }
