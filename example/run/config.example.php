@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'type' => "message|voice",
+    'type' => "message|voice|validate",
 
     'sid' => "",
     'token' => "",

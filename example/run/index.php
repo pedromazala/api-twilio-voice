@@ -50,4 +50,10 @@ if ($type === 'message') {
         $callFlow = new \EMiolo\Example\CallFlow($call);
         $callFlow->run();
     }
+} else if ($type === 'validate') {
+    $service = new \EMiolo\Twilio\App\Service($sid, $token);
+
+    $phoneNumber = $service->validatePhoneNumber($to);
+
+    print $phoneNumber->full_number;
 }

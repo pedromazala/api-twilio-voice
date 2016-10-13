@@ -2,7 +2,8 @@
 
 namespace EMiolo\Twilio\App;
 
-use EMiolo\Twilio\App;
+use EMiolo\Twilio\App\Type\PhoneNumber;
+use EMiolo\Twilio\App\Util\Validations;
 use Twilio\Rest\Client;
 
 class Service
@@ -15,25 +16,7 @@ class Service
     public function __construct($sid, $token)
     {
         $http = null;
-        if (App::isDebug()) {
-            /*
-             * TODO: SSL escape
-             */
-//            $http = new \Services_Twilio_TinyHttp(
-//                'https://api.twilio.com',
-//                [
-//                    'curlopts' => [
-//                        CURLOPT_SSL_VERIFYPEER => false,
-//                        CURLOPT_SSL_VERIFYHOST => 2,
-//                    ]
-//                ]
-//            );
-        }
         $this->client = new Client($sid, $token);
-
-        if (App::isDebug()) {
-//            $this->client->http->debug = true;
-        }
     }
 
     /**
@@ -42,5 +25,15 @@ class Service
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Validate if phone number is valid
+     * @param $number
+     * @return PhoneNumber|null
+     */
+    public function validatePhoneNumber($number)
+    {
+        return (new Validations($this))->phoneNumber($number);
     }
 }
